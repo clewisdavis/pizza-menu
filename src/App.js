@@ -1,5 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import logo from "./logo.svg";
+import "./App.css";
 
 const pizzaData = [
   {
@@ -46,11 +48,25 @@ const pizzaData = [
   },
 ];
 
-
 function App() {
   return (
     <div>
-      <h1>Hello World! Good Job</h1>
+      <Header />
+      <Menu />
+      <Footer />
+    </div>
+  );
+}
+
+function Header() {
+  return <h1>Fast React Pizza Co.</h1>;
+}
+
+function Menu() {
+  return (
+    <div>
+      <h2>Our Menu</h2>
+      <Pizza />
       <Pizza />
       <Pizza />
       <Pizza />
@@ -58,12 +74,26 @@ function App() {
   );
 }
 
+function Footer() {
+  const hour = new Date().getHours();
+  console.log(hour);
+  // display an alert if the restaraunt is open
+  const openHour = 12;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+
+  // if(hour >= openHour && hour <= closeHour) alert('We are open!')
+  // else alert('Sorry we are closed');
+
+  return <footer>{new Date().toLocaleTimeString()}. We are currently open!</footer>
+}
+
 function Pizza() {
   return (
     <div>
-      <img src='pizzas/spinaci.jpg' alt='Pizza spinaci'/>
+      <img src="pizzas/spinaci.jpg" alt="Pizza spinaci" />
       <h2>Pizza Spinaci</h2>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
+      <p>Tomato, mozarella, spinach, and ricotta cheese and garlic</p>
     </div>
   );
 }

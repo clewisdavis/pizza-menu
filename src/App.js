@@ -79,22 +79,29 @@ function Menu() {
     <main className="menu">
       <h2>Our Menu</h2>
 
+
       {/* Conditional Operator && */}
       {/* {numPizzas > 0 && (
         <ul className="pizzas">
-          {pizzas.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
+        {pizzas.map((pizza) => (
+          <Pizza pizzaObj={pizza} key={pizza.name} />
           ))}
-        </ul>
-      )} */}
+          </ul>
+          )} */}
 
       {/* Ternerary Operator */}
       {numPizzas > 0 ? (
-        <ul className="pizzas">
-          {pizzas.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
+        <React.Fragment>
+          <p>
+            Authentic Italian cuisine. Creative dishes to choose from, all from our stone oven and delicious.
+          </p>
+
+          <ul className="pizzas">
+            {pizzas.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </React.Fragment>
       ) : <p>We are still working on our menu. Please come back later.</p> }
 
       {/* <Pizza
@@ -113,24 +120,25 @@ function Menu() {
   );
 }
 
-function Pizza(props) {
-
+function Pizza({ pizzaObj }) {
+  
+  console.log(pizzaObj)
   // Early return to check if the pizza is sold out, so it returns nothing.
-  if(props.pizzaObj.soldOut) return null;
+  // if(pizzaObj.soldOut) return null;
 
   return (
-    <li className='pizza'>
-      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+    <li className={`pizza ${pizzaObj.soldOut ? 'sold-out' : ''}`}>
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <span>{props.pizzaObj.price + 3}</span>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <span>{pizzaObj.soldOut ? 'Sold Out' : pizzaObj.price}</span>
       </div>
     </li>
   );
 }
 
-function Footer() {
+function Footer(props) {
   const hour = new Date().getHours();
   // display an alert if the restaurant is open
   const openHour = 9;
@@ -158,10 +166,10 @@ function Footer() {
 
   }
   
-  function Order(props) {
+  function Order({ closeHour, openHour}) {
     return (
       <div className='order'>
-          <p>We're open until {props.closeHour}:00. Come visit us or order online.</p>
+          <p>We're open until {closeHour}:00. Come visit us or order online. We open { openHour }</p>
           <button className='btn'>Order</button>
       </div>
     )
